@@ -28,7 +28,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Drivebase m_drivebase = new Drivebase();
+  public static Drivebase m_drivebase;
   public static OI m_oi;
 
   Command m_autonomousCommand;

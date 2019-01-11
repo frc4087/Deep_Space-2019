@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,11 +42,14 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
+  // Joystick deadband; default is 0.1
   public static final double JOY_DEADZONE = 0.1;
 
-  public final Joystick DRIVE_JOY = new Joystick(RobotMap.DRIVE_JOYSTICK.value);
-  public final Joystick CONTROL_JOY = new Joystick(RobotMap.CONTROL_JOYSTICK.value);
+  // Initialize joysticks
+  public final XboxController DRIVE_JOY = new XboxController(RobotMap.DRIVE_JOYSTICK.value);
+  public final XboxController CONTROL_JOY = new XboxController(RobotMap.CONTROL_JOYSTICK.value);
 
+  // get Joystick axis values
   public double getDriveJoyXL() {
     double raw = DRIVE_JOY.getRawAxis(0);
     return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
