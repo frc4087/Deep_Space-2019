@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+    m_drivebase = new Drivebase();
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);

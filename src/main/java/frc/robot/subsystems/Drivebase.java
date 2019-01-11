@@ -47,7 +47,7 @@ public class Drivebase extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
+  protected void initDefaultCommand() {
 
     setDefaultCommand(new TankDrive());
 
