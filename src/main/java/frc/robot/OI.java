@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +41,53 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+
+  public static final double JOY_DEADZONE = 0.1;
+
+  public final Joystick DRIVE_JOY = new Joystick(RobotMap.DRIVE_JOYSTICK.value);
+  public final Joystick CONTROL_JOY = new Joystick(RobotMap.CONTROL_JOYSTICK.value);
+
+  public double getDriveJoyXL() {
+    double raw = DRIVE_JOY.getRawAxis(0);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getDriveJoyYL() {
+    double raw = DRIVE_JOY.getRawAxis(1);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getDriveJoyXR() {
+    double raw = DRIVE_JOY.getRawAxis(4);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getDriveJoyYR() {
+    double raw = DRIVE_JOY.getRawAxis(5);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getControlJoyXL() {
+    double raw = CONTROL_JOY.getRawAxis(0);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getControlJoyYL() {
+    double raw = CONTROL_JOY.getRawAxis(1);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getControlJoyXR() {
+    double raw = CONTROL_JOY.getRawAxis(4);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public double getControlJoyYR() {
+    double raw = CONTROL_JOY.getRawAxis(5);
+    return Math.abs(raw) < JOY_DEADZONE ? 0.0 : raw;
+  }
+
+  public OI() {
+
+  }
 }

@@ -7,16 +7,18 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * An example command. You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-  public ExampleCommand() {
-    // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_subsystem);
+public class TankDrive extends Command {
+  public TankDrive() {
+
+    requires(Robot.m_drivebase);
   }
 
   // Called just before this Command runs the first time
@@ -27,6 +29,9 @@ public class ExampleCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    Robot.m_drivebase.tankDrive(ControlMode.PercentOutput, Robot.m_oi.getControlJoyYL(), Robot.m_oi.getControlJoyYR());
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,5 +49,8 @@ public class ExampleCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+
+    end();
+
   }
 }
