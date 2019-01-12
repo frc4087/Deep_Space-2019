@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.Drivebase;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -31,6 +34,16 @@ public class Robot extends TimedRobot {
   public static Drivebase m_drivebase;
   public static OI m_oi;
 
+  WPI_TalonSRX leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR.value);
+  WPI_TalonSRX rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR.value);
+  WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.LEFT_SLAVE.value);
+  WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.RIGHT_SLAVE.value);
+
+  SpeedControllerGroup m_left = new SpeedControllerGroup(leftMotor, leftSlave);
+  SpeedControllerGroup m_right = new SpeedControllerGroup(rightMotor, rightSlave);
+
+  DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -42,6 +55,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
     m_drivebase = new Drivebase();
+
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -127,6 +141,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    m_drive.curvatureDrive(Robot.m_oi.getDriveJoyYL(), Robot.m_oi.getDriveJoyXR(), Robot.m_oi.DRIVE_JOY.getBButton());
     Scheduler.getInstance().run();
   }
 

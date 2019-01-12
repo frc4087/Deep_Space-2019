@@ -8,26 +8,29 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.TankDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drivebase extends Subsystem {
 
-  private TalonSRX leftMotor;
-  private TalonSRX rightMotor;
-  private TalonSRX leftSlave;
-  private TalonSRX rightSlave;
+  private WPI_TalonSRX leftMotor;
+  private WPI_TalonSRX rightMotor;
+  private WPI_TalonSRX leftSlave;
+  private WPI_TalonSRX rightSlave;
+  
+  public DifferentialDrive m_drive;
 
   public Drivebase() {
 
-    leftMotor = new TalonSRX(RobotMap.LEFT_MOTOR.value);
-    rightMotor = new TalonSRX(RobotMap.RIGHT_MOTOR.value);
-    leftSlave = new TalonSRX(RobotMap.LEFT_SLAVE.value);
-    rightSlave = new TalonSRX(RobotMap.RIGHT_SLAVE.value);
+    leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR.value);
+    rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR.value);
+    leftSlave = new WPI_TalonSRX(RobotMap.LEFT_SLAVE.value);
+    rightSlave = new WPI_TalonSRX(RobotMap.RIGHT_SLAVE.value);
 
     Robot.initTalon(leftMotor);
     Robot.initTalon(rightMotor);
@@ -37,7 +40,10 @@ public class Drivebase extends Subsystem {
     leftSlave.follow(leftMotor);
     rightSlave.follow(rightMotor);
 
+    m_drive = new DifferentialDrive(leftMotor, rightMotor);
+
   }
+  
 
   public void tankDrive(ControlMode mode, double leftValue, double rightValue) {
 
